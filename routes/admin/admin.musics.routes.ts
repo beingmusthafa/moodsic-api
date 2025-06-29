@@ -36,6 +36,9 @@ adminMusicsRouter
         next
       )
   )
+  .delete("/:musicId", (req: Request, res: Response, next: NextFunction) =>
+    adminMusicsController.delete(req, res, next)
+  )
   .get(
     "/",
 

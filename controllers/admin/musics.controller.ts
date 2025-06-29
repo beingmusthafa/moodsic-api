@@ -163,4 +163,33 @@ export class AdminMusicsController {
       next(new Error("Failed to find musics"));
     }
   }
+
+  async delete(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { musicId } = req.params;
+      const music = await MusicsModel.findById(musicId);
+
+      if (!music) {
+        res.status(404).json({
+          success: false,
+          message: "Music not found",
+        } as ControllerResponse);
+        return;
+      }
+
+      await Promise.all([
+        deleteFromS3(music.audioUrl),
+        deleteFromS3(music.imageUrl),
+        MusicsModel.findByIdAndDelete(musicId)
+      ]);
+
+      res.status(200).json({
+        success: true,
+        message: "Music deleted successfully",
+      } as ControllerResponse);
+    } catch (error) {
+      console.log((error as Error).message);
+      next(new Error("Failed to delete music"));
+    }
+  }
 }
