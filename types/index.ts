@@ -6,7 +6,7 @@ export type ControllerResponse<T = {} | [] | any> = {
 };
 
 export type TAdmin = {
-  fullName: string;
+  name: string;
   email: string;
   phone: string;
   image?: string;

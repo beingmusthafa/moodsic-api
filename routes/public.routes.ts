@@ -1,8 +1,10 @@
 import express from "express";
-import { publicBlogsRouter } from "./public/blogs.routes";
+import { publicMusicsRouter } from "./public/musics.routes";
+import { publicAuthRouter } from "./public/auth.routes";
 
 const publicRouter = express.Router();
 
-publicRouter.use("/blogs", publicBlogsRouter);
+publicRouter.use("/auth", publicAuthRouter);
+publicRouter.use("/musics", publicMusicsRouter);
 
 export default publicRouter;

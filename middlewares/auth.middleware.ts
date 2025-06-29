@@ -1,6 +1,6 @@
 // src/middlewares/adminAuth.ts
 import { Request, Response, NextFunction } from "express";
-import { AdminModel } from "../models/admin.model";
+import { UserModel } from "../models/user.model";
 import {
   generateTokens,
   verifyAccessToken,
@@ -31,7 +31,7 @@ export const adminAuth = async (
     }
 
     // 3. Find admin in database
-    const admin = await AdminModel.findById(decoded.adminId);
+    const admin = await UserModel.findById(decoded.adminId);
 
     if (!admin) {
       return res.status(401).json({ message: "Admin not found" });
@@ -70,7 +70,7 @@ export const refreshAdminToken = async (
     }
 
     // 3. Find admin in database
-    const admin = await AdminModel.findById(decoded.adminId);
+    const admin = await UserModel.findById(decoded.adminId);
 
     if (!admin) {
       return res.status(401).json({ message: "Admin not found" });
